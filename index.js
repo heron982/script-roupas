@@ -51,6 +51,8 @@ for (const filename of files) {
   //retiramos a extensão.
   baseName = filename.split(extension)[0];
 
+  baseName = baseName.replace(/_(\d{3})/g, "");
+
   console.log("base name", baseName);
 
   const category = CATEGORIES.find((cat) => baseName.includes(cat));
@@ -72,8 +74,6 @@ for (const filename of files) {
   // Define pasta final
   let folderPath = "";
 
-  console.log("baseName folderPath", baseName);
-
   if (gender) {
     folderPath = path.join(DEST_DIR, baseName, gender);
   } else {
@@ -81,18 +81,15 @@ for (const filename of files) {
   }
 
   //seperar por numero dentro da pasta do arquivo e mover o respectivo ytd e ydd para a pasta
-
-  const roupaNumero = filename.match(/_(0\d+)/g);
-
-  console.log("roupaNumero", roupaNumero ? roupaNumero[1] : null);
+  const roupaNumero = filename.match(/_(\d{3})/g);
 
   folderPath = category
     ? path.join(folderPath, category)
     : path.join(folderPath);
 
   folderPath =
-    roupaNumero && roupaNumero[1]
-      ? path.join(folderPath, roupaNumero[1])
+    roupaNumero && roupaNumero[0]
+      ? path.join(folderPath, roupaNumero[0])
       : path.join(folderPath);
 
   // Cria pasta final se não existir
@@ -101,7 +98,7 @@ for (const filename of files) {
   // Move arquivo
   fs.copyFileSync(filepath, path.join(folderPath, filename));
 
-  console.log(`Arquivo ${filename} movido para ${folderPath}`);
+  console.log(`Arquivo ${baseName} movido para ${folderPath}`);
 }
 
 console.log("✅ Arquivos organizados por nome, gênero e categorias!");
