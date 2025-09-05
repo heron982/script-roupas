@@ -80,9 +80,18 @@ for (const filename of files) {
     folderPath = path.join(DEST_DIR, baseName);
   }
 
+  //seperar por numero dentro da pasta do arquivo e mover o respectivo ytd e ydd para a pasta
+
+  const roupaNumero = filename.match(/_(\d+)_/g);
+
   folderPath = category
     ? path.join(folderPath, category)
     : path.join(folderPath);
+
+  folderPath =
+    roupaNumero && roupaNumero[1]
+      ? path.join(folderPath, roupaNumero[1])
+      : path.join(folderPath);
 
   // Cria pasta final se não existir
   fs.mkdirSync(folderPath, { recursive: true });
