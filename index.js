@@ -2,7 +2,7 @@ import fs from "fs";
 import path, { basename } from "path";
 
 // Configurações
-const SOURCE_DIR = "/home/heron982/Área de trabalho/teste"; // <- pasta de origem
+const SOURCE_DIR = "/home/heron982/Downloads/roupas"; // <- pasta de origem
 const DEST_DIR = "/home/heron982/Área de trabalho/output_test"; // <- pasta de destino
 
 // Lista de categorias
@@ -83,6 +83,8 @@ for (const filename of files) {
   //seperar por numero dentro da pasta do arquivo e mover o respectivo ytd e ydd para a pasta
 
   const roupaNumero = filename.match(/_(\d+)_/g);
+
+  console.log("roupaNumero", roupaNumero ? roupaNumero[1] : null);
 
   folderPath = category
     ? path.join(folderPath, category)
