@@ -63,22 +63,10 @@ for (const filename of files) {
     baseName = baseName.split(category)[0];
   }
 
-  // Gênero
-  let gender = null;
-  if (baseName.includes("mp_m")) {
-    gender = "masculino";
-  } else if (baseName.includes("mp_f")) {
-    gender = "feminino";
-  }
-
   // Define pasta final
   let folderPath = "";
 
-  if (gender) {
-    folderPath = path.join(DEST_DIR, baseName, gender);
-  } else {
-    folderPath = path.join(DEST_DIR, baseName);
-  }
+  folderPath = path.join(DEST_DIR, baseName);
 
   //seperar por numero dentro da pasta do arquivo e mover o respectivo ytd e ydd para a pasta
   const roupaNumero = filename.match(/_(\d{3})/g);
